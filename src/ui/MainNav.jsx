@@ -1,3 +1,9 @@
+import {
+  HiOutlineCalendar,
+  HiOutlineHome,
+  HiOutlineUsers,
+} from "react-icons/hi";
+import { HiOutlineCog6Tooth, HiOutlineHomeModern } from "react-icons/hi2";
 import { NavLink } from "react-router";
 import styled from "styled-components";
 
