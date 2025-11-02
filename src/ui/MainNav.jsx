@@ -63,7 +63,7 @@ const MainNav = () => {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to='/bookigns'>
+          <StyledNavLink to='/bookings'>
             <HiOutlineCalendar />
             <span>Bookings</span>
           </StyledNavLink>
