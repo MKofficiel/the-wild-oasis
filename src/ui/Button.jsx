@@ -53,8 +53,8 @@ const Button = styled.button`
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-md);
 
-  ${({ size }) => sizes[size]}
-  ${({ variation }) => variations[variation]}
+  ${({ size = "medium" }) => sizes[size]}
+  ${({ variation = "primary" }) => variations[variation]}
 
   &:hover {
     box-shadow: var(--shadow-lg);
@@ -66,4 +66,5 @@ const Button = styled.button`
     box-shadow: none;
   }
 `;
+
 export default Button;
