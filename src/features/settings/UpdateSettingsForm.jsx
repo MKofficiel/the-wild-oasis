@@ -3,10 +3,11 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import Spinner from "../../ui/Spinner";
 import useSettings from "./useSettings";
+import { useUpdateSetting } from "./useUpdateSetting";
 
 function UpdateSettingsForm() {
   const { isPending, settings = {} } = useSettings();
-
+  const { isUpdating, updateSetting } = useUpdateSetting();
   const {
     minBookingLength,
     maxBookingLength,
@@ -14,26 +15,53 @@ function UpdateSettingsForm() {
     breakFastPrice,
   } = settings;
   if (isPending) return <Spinner />;
+
+  function handleUpdate(e, fieldName, maxBookingLength) {
+    const value = e.target.value;
+
+    console.log(value, maxBookingLength);
+
+    if (!value) return;
+
+    updateSetting({ [fieldName]: value });
+  }
+
   return (
     <Form>
       <FormRow label='Minimum nights/booking'>
-        <Input type='number' id='min-nights' defaultValue={minBookingLength} />
+        <Input
+          type='number'
+          id='min-nights'
+          disabled={isUpdating}
+          defaultValue={minBookingLength}
+          onBlur={(e) => handleUpdate(e, "minBookingLength")}
+        />
       </FormRow>
       <FormRow label='Maximum nights/booking'>
-        <Input type='number' id='max-nights' defaultValue={maxBookingLength} />
+        <Input
+          type='number'
+          id='max-nights'
+          disabled={isUpdating}
+          defaultValue={maxBookingLength}
+          onBlur={(e) => handleUpdate(e, "maxBookingLength", maxBookingLength)}
+        />
       </FormRow>
       <FormRow label='Maximum guests/booking'>
         <Input
           type='number'
           id='max-guests'
+          disabled={isUpdating}
           defaultValue={maxGuestsPerBooking}
+          onBlur={(e) => handleUpdate(e, "maxGuestsPerBooking")}
         />
       </FormRow>
       <FormRow label='Breakfast price'>
         <Input
           type='number'
           id='breakfast-price'
+          disabled={isUpdating}
           defaultValue={breakFastPrice}
+          onBlur={(e) => handleUpdate(e, "breakFastPrice")}
         />
       </FormRow>
     </Form>
