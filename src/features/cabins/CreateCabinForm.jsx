@@ -10,6 +10,8 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
+import { useCreateCabin } from "./useCreateCabin";
+import { useEditCabin } from "./useEditCabin";
 
 function CreateCabinForm({ cabinToEdit = {} }) {
   const { id: editId, ...editValues } = cabinToEdit;
@@ -26,41 +28,11 @@ function CreateCabinForm({ cabinToEdit = {} }) {
     defaultValues: isEditSession ? editValues : {},
   });
 
-  const queryClient = useQueryClient();
-  //Create cabin fonction
-  const { isPending: isCreating, mutate: createCabin } = useMutation({
-    mutationFn: (newCabinData) => createEditCabin(newCabinData),
+  //Create Cabin Hook
+  const { isCreating, createCabin } = useCreateCabin();
 
-    onSuccess: () => {
-      toast.success("New cabin successfully created");
-
-      queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-
-      reset();
-    },
-
-    onError: (err) => toast.error(err.message),
-  });
-
-  //Edit cabin
-
-  const { isPending: isEditing, mutate: editCabin } = useMutation({
-    mutationFn: ({ newCabinData, id }) => createEditCabin(newCabinData, id),
-
-    onSuccess: () => {
-      toast.success("New cabin successfully Edited");
-
-      queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-
-      reset();
-    },
-
-    onError: (err) => toast.error(err.message),
-  });
+  //Edit cabin hook
+  const { isEditing, editCabin } = useEditCabin();
 
   const isWorking = isCreating || isEditing;
 
@@ -70,13 +42,23 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 
     console.log(image, "IMAGE");
     if (isEditSession)
-      editCabin({ newCabinData: { ...data, image }, id: editId });
+      editCabin(
+        { newCabinData: { ...data, image }, id: editId },
+        {
+          onSuccess: () => reset(),
+        }
+      );
     else {
-      createCabin({ ...data, image });
+      createCabin(
+        { ...data, image },
+        {
+          onSuccess: () => reset(),
+        }
+      );
     }
   };
 
-  const onError = (error) => {};
+  const onError = () => {};
 
   return (
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
