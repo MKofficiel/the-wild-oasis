@@ -36,7 +36,6 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
     //Check voir si limage uploader a ete modifier
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
-    console.log(image, "IMAGE");
     if (isEditSession)
       editCabin(
         { newCabinData: { ...data, image }, id: editId },
@@ -51,7 +50,10 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
       createCabin(
         { ...data, image },
         {
-          onSuccess: () => reset(),
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
         }
       );
     }
