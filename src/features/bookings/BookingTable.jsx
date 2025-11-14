@@ -9,6 +9,8 @@ function BookingTable() {
   const { bookings, isPending } = useBookings();
   if (isPending) return <Spinner />;
 
+  console.log(bookings, "book");
+
   if (!bookings.length) return <Empty resourceName='Bookings' />;
   return (
     <Menus>
@@ -21,13 +23,13 @@ function BookingTable() {
           <div>Amount</div>
           <div></div>
         </Table.Header>
-
+       
         <Table.Body
           data={bookings}
           render={(booking) => (
             <BookingRow key={booking.id} booking={booking} />
           )}
-        />
+        /> 
       </Table>
     </Menus>
   );
