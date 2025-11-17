@@ -1,38 +1,4 @@
-// import {
-//   HiOutlineCalendar,
-//   HiOutlineCog6Tooth,
-//   HiOutlineHome,
-//   HiOutlineHomeModern,
-//   HiOutlineUsers,
-// } from "react-icons/hi2";
+const SORT_PARAM = "sortBy";
+const FILTER_PARAMS = "status";
 
-// const NavLinks = [
-//   {
-//     label: "Home",
-//     path: "/",
-//     icon: <HiOutlineHome />,
-//   },
-//   {
-//     label: "Bookings",
-//     path: "/bookings",
-//     icon: <HiOutlineCalendar />,
-//   },
-//   {
-//     label: "Cabins",
-//     path: "/cabins",
-
-//     icon: <HiOutlineHomeModern />,
-//   },
-//   {
-//     label: "Users",
-//     path: "/users",
-//     icon: <HiOutlineUsers />,
-//   },
-//   {
-//     label: "Settings",
-//     path: "/settings",
-//     icon: <HiOutlineCog6Tooth />,
-//   },
-// ];
-
-// export { NavLinks };
+export { SORT_PARAM, FILTER_PARAMS };
