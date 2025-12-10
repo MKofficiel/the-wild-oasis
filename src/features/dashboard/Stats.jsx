@@ -13,6 +13,7 @@ export default function Stats({
   numDays,
   cabinCount,
 }) {
+  console.log(bookings.length, "bb");
   // 1. Total bookings
   const numberOfBookings = bookings ? bookings.length : 0;
 
@@ -20,13 +21,14 @@ export default function Stats({
   const sales = bookings.reduce((acc, cur) => acc + cur.totalPrice, 0);
 
   // 3. Total check ins
-  const checkins = confirmedStays.length;
+  const checkins = confirmedStays ? confirmedStays.length : 0;
 
   // 4. Occupancy rate
   // num checked in night /all available might
   const occupancyRate =
+    bookings.length > 0 &&
     confirmedStays.reduce((acc, cur) => acc + cur.numNights, 0) /
-    (numDays * cabinCount);
+      (numDays * cabinCount);
   return (
     <>
       <Stat
